@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      target: dev
+    ports: ["3000:3000"]
+    volumes:
+      - ./app:/app
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
