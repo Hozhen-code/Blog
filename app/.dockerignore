@@ -1,4 +1,15 @@
+# Node/Next caches
 node_modules
 .next
-npm-debug.log
+out
+dist
+# VCS/OS junk
 .git
+.gitignore
+.DS_Store
+Thumbs.db
+# Logs/Env
+*.log
+.env*
+# Local tooling
+docker-compose.yml
