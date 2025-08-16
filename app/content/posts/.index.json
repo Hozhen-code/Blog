@@ -1,0 +1,15 @@
+[
+  {
+    "slug": "Breast",
+    "title": "유방암 진단 모델 만들기",
+    "date": "2025-08-11",
+    "category": "data_analytics",
+    "tags": [
+      "Python",
+      "데이터분석"
+    ],
+    "excerpt": "K-NN",
+    "readMin": 1,
+    "published": true
+  }
+]
