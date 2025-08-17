@@ -10,6 +10,8 @@
     ],
     "excerpt": "K-NN",
     "readMin": 1,
-    "published": true
+    "published": true,
+    "thumbnail": "/images/2025-08-11-Breast/cover.png",
+    "thumbnailAlt": "썸네일"
   }
 ]

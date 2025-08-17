@@ -6,20 +6,43 @@
     "node": ">=20 <21"
   },
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "node .next/standalone/server.js",
-    "typecheck": "tsc --noEmit"
+    "export": "next export",
+    "build:static": "next build",
+    "start": "next start -p 3000 -H 0.0.0.0",
+    "lint": "next lint",
+    
+    "deploy:prod": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/deploy.ps1 -Bucket yourblog-static-hojin -DistributionId E34H6ICYW429OS -Paths \"/*\""
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.539.0",
     "next": "15.4.6",
+    "next-mdx-remote": "^5.0.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "reading-time": "^1.5.0",
+    "rehype-pretty-code": "^0.14.1",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^3.9.2",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "5.9.2"
   }
 }

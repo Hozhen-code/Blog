@@ -19,7 +19,7 @@ const CATEGORIES = [
   { key: "opinion",        label: "잡담" },
 ];
 
-/** Hydration 오류 방지: 로케일/타임존 영향 없는 고정 포맷 */
+/** Hydration 오류 방지: 로케일 의존 없는 고정 포맷 */
 const formatDate = (iso: string) => {
   const [y, m, d] = iso.split("-").map(Number);
   return `${y}. ${m}. ${d}.`;
@@ -51,8 +51,23 @@ function Hero() {
 
 function PostCard({ post }: { post: PostMeta }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.25 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.2 }}
+    >
       <Card className="rounded-2xl overflow-hidden border-neutral-200/70 dark:border-neutral-800">
+        {post.thumbnail && (
+          <div className="aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+            <img
+              src={post.thumbnail}
+              alt={post.thumbnailAlt || post.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
         <CardContent className="p-0">
           <Link href={`/posts/${post.slug}`} className="block p-5">
             <div className="text-xs text-neutral-500 dark:text-neutral-400">
@@ -68,7 +83,10 @@ function PostCard({ post }: { post: PostMeta }) {
             )}
             <div className="mt-3 flex flex-wrap gap-2">
               {(post.tags ?? []).map((t) => (
-                <span key={t} className="text-[11px] px-2 py-0.5 rounded-full border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800">
+                <span
+                  key={t}
+                  className="text-[11px] px-2 py-0.5 rounded-full border bg-neutral-50 dark:bg-neutral-900 dark:border-neutral-800"
+                >
                   #{t}
                 </span>
               ))}
@@ -87,19 +105,20 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
   const filtered = useMemo(() => {
     const s = query.toLowerCase();
     return posts
-      .filter(p => active === "all" ? true : (p.category ?? "etc") === active)
-      .filter(p =>
-        p.title.toLowerCase().includes(s) ||
-        (p.tags?.join(" ").toLowerCase() ?? "").includes(s)
+      .filter((p) => (active === "all" ? true : (p.category ?? "etc") === active))
+      .filter(
+        (p) =>
+          p.title.toLowerCase().includes(s) ||
+          (p.tags?.join(" ").toLowerCase() ?? "").includes(s)
       );
   }, [posts, active, query]);
 
   return (
     <div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-white">
-      {/* 전역 헤더는 layout.tsx에서 렌더됩니다 */}
+      {/* 헤더는 layout.tsx의 <SiteHeader />로 전역 1회 */}
       <Hero />
 
-      {/* 카테고리 탭 */}
+      {/* 데스크톱 카테고리 탭 */}
       <div className="border-b bg-white dark:bg-neutral-950 dark:border-neutral-800">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex items-center gap-2">
           {CATEGORIES.map((c) => (
@@ -130,7 +149,9 @@ export default function HomeClient({ posts }: { posts: PostMeta[] }) {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="text-sm text-neutral-500 dark:text-neutral-400">검색 결과가 없어요.</div>
+          <div className="text-sm text-neutral-500 dark:text-neutral-400">
+            검색 결과가 없어요.
+          </div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((post) => (

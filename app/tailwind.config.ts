@@ -1,14 +1,14 @@
-import type { Config } from "tailwindcss"
+// D:\blog\app\tailwind.config.ts
+import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: "class",
+  darkMode: ["class"],
   content: [
     "./src/app/**/*.{ts,tsx,mdx}",
     "./src/components/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
-      // shadcn/ui 기본 토큰(선택이지만 권장)
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,7 +53,8 @@ const config: Config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("@tailwindcss/typography")],
-}
+    require("@tailwindcss/typography"),
+  ],
+};
 
-export default config
+export default config;
